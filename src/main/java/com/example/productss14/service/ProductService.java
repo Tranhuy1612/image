@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductService implements IgenericService<Product, Long> {
+public class ProductService implements IGenericService<Product, Long> {
 
 
     @Override
@@ -28,7 +28,6 @@ public class ProductService implements IgenericService<Product, Long> {
                 p.setStatus(rs.getBoolean("status"));
                 products.add(p);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

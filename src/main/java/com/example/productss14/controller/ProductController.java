@@ -39,7 +39,7 @@ public class ProductController extends HttpServlet {
                 case "DELETE":
                     Long idDel = Long.valueOf(request.getParameter("id"));
                     productService.delete(idDel);
-                     break;
+                    break;
                 case "EDIT":
                     Long editProductId = Long.valueOf(request.getParameter("id"));
                     Product editProduct = productService.findById(editProductId);
@@ -61,8 +61,8 @@ public class ProductController extends HttpServlet {
                 case "DETAIL":
                     Long id = Long.valueOf(request.getParameter("id"));
                     Product p = productService.findById(id);
-                    request.setAttribute("product",p);
-                    request.getRequestDispatcher("/WEB-INF/productDetail.jsp").forward(request,response);
+                    request.setAttribute("product", p);
+                    request.getRequestDispatcher("/WEB-INF/productDetail.jsp").forward(request, response);
             }
 //            displayProducts(productService.findAll(), request, response);
             response.sendRedirect("/");
@@ -99,7 +99,7 @@ public class ProductController extends HttpServlet {
                             avatar = part.getSubmittedFileName();
                         } else if (part.getName().equals("imageUrls")) {
                             // xử lí nhiều file
-                            part.write(imagePath+ File.separator+part.getSubmittedFileName());
+                            part.write(imagePath + File.separator + part.getSubmittedFileName());
                             listImageUrls.add(part.getSubmittedFileName());
                         }
                     }
@@ -108,18 +108,24 @@ public class ProductController extends HttpServlet {
 //                    displayProducts(productService.findAll(), request, response);
                     response.sendRedirect("/");
                     break;
-//               case "UPDATE":
-//                    Long updateProductId = Long.parseLong(request.getParameter("id"));
-//                    String updatedName = request.getParameter("name");
-//                    String updatedDes = request.getParameter("des");
-//                    Double updatedPrice = Double.valueOf(request.getParameter("price"));
-//                    int updatedStock = Integer.parseInt(request.getParameter("stock"));
-//                    String updatedImageUrl = request.getParameter("imageUrl");
-////                    String updateImage = request.getParameter("imageUrls");
-//                    Product updatedProduct = new Product(updateProductId, updatedName, updatedDes, updatedPrice, updatedStock, updatedImageUrl);
-//                    productService.save(updatedProduct);
-//                    displayProducts(productService.findAll(), request, response);
-//                    break;
+                case "UPDATE":
+                    Long updateId = Long.valueOf(request.getParameter("id"));
+                    String newName = request.getParameter("name");
+                    String newDes = request.getParameter("des");
+                    Double newPrice = Double.valueOf(request.getParameter("price"));
+                    int newStock = Integer.parseInt(request.getParameter("stock"));
+
+                    // Update the product
+                    Product updatedProduct = productService.findById(updateId);
+                    updatedProduct.setName(newName);
+                    updatedProduct.setDescriptions(newDes);
+                    updatedProduct.setPrice(newPrice);
+                    updatedProduct.setStock(newStock);
+
+                    // Save the updated product
+                    productService.save(updatedProduct);
+                    response.sendRedirect("/");
+                    break;
             }
         }
     }

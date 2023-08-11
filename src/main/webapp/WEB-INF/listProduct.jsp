@@ -55,7 +55,7 @@
         <th>Price</th>
         <th>Stock</th>
         <th>Status</th>
-        <th colspan="3">Action</th>
+        <th colspan="4">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -69,6 +69,7 @@
             <td>${p.stock}</td>
             <td>${p.status?"Còn Hàng":"Hết Hàng"}</td>
             <td><a href="<%=request.getContextPath()%>/ProductController?action=EDIT&id=${p.id}">Edit</a></td>
+            <td><a href="<%=request.getContextPath()%>/CartServlet?action=ADDTOCART&id=${p.id}">Buy</a></td>
             <td><a href="<%=request.getContextPath()%>/ProductController?action=DETAIL&id=${p.id}">Detail</a></td>
             <td><a onclick="return confirm('do you want to delete this item ? ')" href="<%=request.getContextPath()%>/ProductController?action=DELETE&id=${p.id}">Delete</a></td>
         </tr>
